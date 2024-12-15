@@ -34,10 +34,10 @@ jobs:
           python -m pip install --upgrade pip
           pip install setuptools wheel cython
 
-      # Install Python dependencies directly
+      # Install Python dependencies
       - name: Install Python dependencies
         run: |
-          pip install torch==1.12.1 torchvision==0.13.1 tensorboardx==2.5.1 scipy==1.9.3 pyyaml==6.0 easydict==1.9
+          pip install torch==1.12.1 torchvision==0.13.1 tensorboardx==2.5.1 scipy==1.9.3 pyyaml==6.0 easydict==1.9 pytest
 
       # Run Python test cases
       - name: Run tests
