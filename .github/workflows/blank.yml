@@ -20,13 +20,13 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.10'  # Use Python 3.10
+          python-version: '3.10'
 
       # Install system dependencies for PyYAML
       - name: Install system dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y libyaml-dev build-essential  # Install necessary dependencies
+          sudo apt-get install -y libyaml-dev build-essential
 
       # Upgrade pip and install build tools
       - name: Upgrade pip and install build tools
@@ -34,15 +34,15 @@ jobs:
           python -m pip install --upgrade pip
           pip install setuptools wheel cython  # Ensure build tools are available
 
-      # Pre-install PyYAML as a binary to avoid build issues
-      - name: Pre-install PyYAML
+      # Override PyYAML version for compatibility
+      - name: Install compatible PyYAML version
         run: |
-          pip install pyyaml==5.4.1 --only-binary=:all:  # Force binary installation of PyYAML
+          pip install pyyaml==6.0  # Install a compatible PyYAML version
 
-      # Install dependencies from requirements.txt
-      - name: Install dependencies
+      # Install remaining dependencies from requirements.txt
+      - name: Install dependencies (ignore PyYAML conflict)
         run: |
-          pip install -r requirements.txt  # Install remaining dependencies
+          pip install --no-deps -r requirements.txt  # Ignore dependencies for pre-installed packages
 
       # Run Python test cases
       - name: Run tests
